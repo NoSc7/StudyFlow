@@ -1,30 +1,24 @@
 """Authentication endpoints"""
 from datetime import timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
+from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from app.db import get_db
 from app.models import User
 from app.security import hash_password, verify_password, create_access_token
 from app.config import settings
+from app.schemas import UserCreate, TokenResponse, UserResponse
 
 router = APIRouter()
 
 
-class LoginRequest:
-    def __init__(self, email: str, password: str):
-        self.email = email
-        self.password = password
+class LoginRequest(BaseModel):
+    email: str
+    password: str
 
 
-class RegisterRequest:
-    def __init__(self, email: str, username: str, password: str):
-        self.email = email
-        self.username = username
-        self.password = password
-
-
-@router.post("/register")
-async def register(request: RegisterRequest, db: Session = Depends(get_db)):
+@router.post("/register", response_model=UserResponse)
+async def register(request: UserCreate, db: Session = Depends(get_db)):
     """Register a new user"""
     # Check if user already exists
     user = db.query(User).filter(
@@ -47,10 +41,10 @@ async def register(request: RegisterRequest, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_user)
     
-    return {"id": new_user.id, "email": new_user.email, "username": new_user.username}
+    return new_user
 
 
-@router.post("/login")
+@router.post("/login", response_model=TokenResponse)
 async def login(request: LoginRequest, db: Session = Depends(get_db)):
     """Login user"""
     user = db.query(User).filter(User.email == request.email).first()
