@@ -7,7 +7,9 @@ class Settings(BaseSettings):
     """Application settings from environment variables"""
     
     # Database
-    DATABASE_URL: str = "postgresql://user:password@localhost/studyflow"
+    DATABASE_URL: str = "sqlite:///C:/Users/noahs/Desktop/ETHHHH2026/StudyFlow/backend/studyflow.db"
+
+
     
     # Security
     SECRET_KEY: str = "your-secret-key-change-in-production"
