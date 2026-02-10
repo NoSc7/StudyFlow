@@ -1,2 +1,16 @@
 # StudyFlow
-StudyFlow est une application web personnelle conçue pour organiser efficacement mes cours, notes, examens et révisions. Elle centralise tout mon suivi académique dans une interface claire.
+
+Application web pour organiser ses cours, chapitres et tâches.
+
+## Stack
+- Frontend : React + TypeScript + Vite
+- Backend : FastAPI (Python)
+- Base de données : SQLite (dev) / PostgreSQL (prod)
+
+## Objectifs
+- Centraliser les cours
+- Suivre les chapitres et tâches
+- Avoir une vue claire des échéances
+
+## Statut
+🚧 En développement
