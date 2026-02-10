@@ -4,29 +4,29 @@ from sqlalchemy.orm import Session
 from app.db import get_db
 from app.models import Course, User
 from app.deps import get_current_user
+from app.schemas import CourseCreate, Course as CourseSchema
 
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("/", response_model=list[CourseSchema])
 async def list_courses(db: Session = Depends(get_db)):
     """List all courses"""
     courses = db.query(Course).all()
     return courses
 
 
-@router.post("/")
+@router.post("/", response_model=CourseSchema)
 async def create_course(
-    title: str,
-    description: str,
+    course: CourseCreate,
     current_user: dict = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
     """Create a new course"""
     user_id = current_user.get("sub")
     new_course = Course(
-        title=title,
-        description=description,
+        title=course.title,
+        description=course.description,
         owner_id=int(user_id),
     )
     db.add(new_course)
@@ -35,7 +35,7 @@ async def create_course(
     return new_course
 
 
-@router.get("/{course_id}")
+@router.get("/{course_id}", response_model=CourseSchema)
 async def get_course(course_id: int, db: Session = Depends(get_db)):
     """Get a specific course"""
     course = db.query(Course).filter(Course.id == course_id).first()
@@ -44,27 +44,26 @@ async def get_course(course_id: int, db: Session = Depends(get_db)):
     return course
 
 
-@router.put("/{course_id}")
+@router.put("/{course_id}", response_model=CourseSchema)
 async def update_course(
     course_id: int,
-    title: str,
-    description: str,
+    course: CourseCreate,
     current_user: dict = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
     """Update a course"""
-    course = db.query(Course).filter(Course.id == course_id).first()
-    if not course:
+    db_course = db.query(Course).filter(Course.id == course_id).first()
+    if not db_course:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Course not found")
     
-    if course.owner_id != int(current_user.get("sub")):
+    if db_course.owner_id != int(current_user.get("sub")):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
     
-    course.title = title
-    course.description = description
+    db_course.title = course.title
+    db_course.description = course.description
     db.commit()
-    db.refresh(course)
-    return course
+    db.refresh(db_course)
+    return db_course
 
 
 @router.delete("/{course_id}")
