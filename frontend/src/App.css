@@ -1,67 +1,265 @@
+/* ===== Reset simple ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #0b0f19;
+  color: #e7eaf0;
+}
+
+/* ===== Layout global ===== */
 .app {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 .app-header {
-  background-color: #1a1a1a;
-  padding: 2rem;
+  padding: 28px 18px 10px;
   text-align: center;
-  border-bottom: 1px solid #646cff;
 }
 
 .app-header h1 {
   margin: 0;
-  font-size: 2.5rem;
-  color: #646cff;
+  font-size: 32px;
+  letter-spacing: 0.5px;
 }
 
 .app-header p {
-  margin: 0.5rem 0 0 0;
-  color: #999;
+  margin: 6px 0 0;
+  color: #aab3c5;
 }
 
 .app-nav {
-  background-color: #2a2a2a;
-  padding: 1rem;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .app-nav ul {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 12px;
   display: flex;
-  gap: 2rem;
   justify-content: center;
+  gap: 14px;
+}
+
+.app-nav li {
+  margin: 0;
+  padding: 0;
 }
 
 .app-nav a {
-  color: #fff;
-  transition: color 0.3s;
+  text-decoration: none;
+  color: #e9ecf5;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+  font-weight: 500;
 }
 
 .app-nav a:hover {
-  color: #646cff;
+  background: rgba(160,120,255,0.25);
 }
 
+
+/* ===== Contenu ===== */
 .app-main {
   flex: 1;
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 40px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+
+/* ===== Card (Login etc.) ===== */
+.card {
   width: 100%;
+  max-width: 420px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 16px;
+  padding: 18px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
 
-.app-main h2 {
-  color: #646cff;
-  margin-bottom: 1rem;
+.card h2 {
+  margin: 0 0 12px;
+  font-size: 22px;
 }
 
+/* ===== Form ===== */
+.form {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.label {
+  font-size: 13px;
+  color: #aab3c5;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: #e7eaf0;
+  outline: none;
+}
+
+.input:focus {
+  border-color: rgba(160, 120, 255, 0.7);
+  box-shadow: 0 0 0 3px rgba(160, 120, 255, 0.18);
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.btn {
+  flex: 1;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 0;
+  cursor: pointer;
+  font-weight: 600;
+  background: #a078ff;
+  color: #0b0f19;
+}
+
+.btn:hover {
+  filter: brightness(1.05);
+}
+
+.btn.secondary {
+  background: rgba(255, 255, 255, 0.10);
+  color: #e7eaf0;
+}
+
+.msg {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #cfd6e6;
+}
+
+/* ===== Footer ===== */
 .app-footer {
-  background-color: #1a1a1a;
-  border-top: 1px solid #646cff;
-  padding: 1.5rem;
+  padding: 14px 10px 22px;
   text-align: center;
-  color: #999;
+  color: #7f89a3;
+  font-size: 13px;
+}
+
+.page {
+  width: 100%;
+  max-width: 900px;
+}
+
+.header-inner {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.header-btn {
+  position: fixed;          
+  top: 24px;
+  right: 32px;              
+
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #e9ecf5;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  z-index: 1000;
+}
+
+
+
+.header-btn:hover{
+  background: rgba(160,120,255,0.25);
+}
+
+.header-btn:disabled{
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+input, textarea {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(0,0,0,0.2);
+  color: white;
+}
+
+button {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+}
+
+.msg {
+  margin-top: 10px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list li {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.list a {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.list small {
+  opacity: 0.8;
 }
